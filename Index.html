@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caça ao Tesouro One Piece</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="main-container">
+    <!-- Página Inicial -->
+    <div id="start-container">
+        <h1>Caça ao Tesouro One Piece</h1>
+        <img src="img/OP_INICIO.png" alt="One Piece Início" class="main-image">
+        <br>
+        <button class="start-button" onclick="startGame()">ZARPAR PARA A AVENTURA!!</button>
+    </div>
+
+    <!-- Jogo -->
+    <div id="riddle-container" style="display: none;">
+        <h1 id="title">Desafio do Luffy</h1>
+        <p id="description">Decifre o enigma para atualizar nossa rota:</p>
+        <div id="hint-box" class="hint">Antes de partirmos para a GRAND LINE, precisamos de um plano. Onde o bando se reune para ver o mapa e descansar da última ilha?</div>
+        <input type="text" id="answer" placeholder="Responda aqui..." autocomplete="off">
+        <br>
+        <button onclick="checkAnswer()">CONFIRMAR ROTA</button>
+        <p id="message"></p>
+    </div>
+
+    <div id="map-container">
+        <img src="" id="map-image">
+        <div id="treasure-x" onclick="advanceFromMap()">
+            <img src="img/X_sem_fundo.png" alt="X">
+        </div>
+        <div id="map-instruction">Encontre o X escondido no mapa!</div>
+    </div>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>

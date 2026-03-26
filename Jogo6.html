@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caça ao Tesouro One Piece</title>
+    <style>
+        body {
+            font-family: 'Trebuchet MS', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(255, 87, 34, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 193, 7, 0.1) 0%, transparent 50%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="100" fill="rgba(255,255,255,0.03)">☠</text></svg>');
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(255, 87, 34, 0.02) 10px,
+                    rgba(255, 87, 34, 0.02) 20px
+                );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        #main-container { 
+            width: 100%; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Estilos da Página Inicial */
+        #start-container {
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .main-image {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 20px;
+            border: 5px solid #ff5722;
+            box-shadow: 
+                0 0 30px rgba(255, 87, 34, 0.5),
+                0 10px 40px rgba(0,0,0,0.8),
+                inset 0 0 20px rgba(255, 193, 7, 0.2);
+            margin-bottom: 40px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .main-image:hover {
+            transform: scale(1.02);
+            box-shadow: 
+                0 0 40px rgba(255, 87, 34, 0.7),
+                0 15px 50px rgba(0,0,0,0.9),
+                inset 0 0 25px rgba(255, 193, 7, 0.3);
+        }
+
+        .start-button {
+            padding: 20px 40px;
+            background: linear-gradient(135deg, #ff5722 0%, #ff6b35 50%, #ff8c42 100%);
+            color: white;
+            border: 3px solid #ffc107;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+            text-transform: uppercase;
+            box-shadow: 
+                0 5px 15px rgba(255, 87, 34, 0.4),
+                0 0 20px rgba(255, 193, 7, 0.3),
+                inset 0 0 10px rgba(255,255,255,0.2);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .start-button::before {
+            content: '⚓';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            opacity: 0.7;
+        }
+
+        .start-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 
+                0 8px 25px rgba(255, 87, 34, 0.6),
+                0 0 30px rgba(255, 193, 7, 0.5),
+                inset 0 0 15px rgba(255,255,255,0.3);
+            background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 50%, #ffa500 100%);
+        }
+
+        /* Estilos da Caixa de Enigma */
+        #riddle-container {
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,248,225,0.9) 100%);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 
+                0 15px 35px rgba(0,0,0,0.7),
+                0 0 30px rgba(255, 87, 34, 0.3),
+                inset 0 0 20px rgba(255, 193, 7, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+            border: 4px solid #ff5722;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #riddle-container::before {
+            content: '🏴‍☠️';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 30px;
+            opacity: 0.3;
+            transform: rotate(15deg);
+        }
+
+        /* Estilos da Área do Mapa */
+        #map-container {
+            display: none;
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            border: 5px solid #ff5722;
+            border-radius: 20px;
+            box-shadow: 
+                0 15px 45px rgba(0,0,0,0.8),
+                0 0 40px rgba(255, 87, 34, 0.4),
+                inset 0 0 30px rgba(255, 193, 7, 0.2);
+            overflow: hidden;
+            cursor: crosshair;
+            background: rgba(0,0,0,0.2);
+        }
+
+        #map-image { width: 100%; display: block; }
+
+        /* --- O SEGREDO: O X INVISÍVEL --- */
+        #treasure-x {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            filter: drop-shadow(0 0 10px rgba(255, 193, 7, 0.8));
+        }
+
+        #treasure-x:hover {
+            opacity: 1;
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 20px rgba(255, 193, 7, 1));
+        }
+
+        #treasure-x img { width: 100%; height: 100%; }
+
+        /* Interface */
+        h1 { 
+            color: #ffc107;
+            text-transform: uppercase;
+            text-shadow: 
+                2px 2px 4px rgba(0,0,0,0.8),
+                0 0 20px rgba(255, 193, 7, 0.5),
+                0 0 40px rgba(255, 87, 34, 0.3);
+            font-size: 3em;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 
+                2px 2px 4px rgba(0,0,0,0.8),
+                0 0 20px rgba(255, 193, 7, 0.5),
+                0 0 40px rgba(255, 87, 34, 0.3);
+            }
+            to { text-shadow: 
+                2px 2px 4px rgba(0,0,0,0.8),
+                0 0 30px rgba(255, 193, 7, 0.8),
+                0 0 50px rgba(255, 87, 34, 0.5);
+            }
+        }
+        .hint { 
+            font-style: italic; 
+            color: #1a237e; 
+            margin: 20px 0; 
+            font-weight: bold; 
+            font-size: 1.2em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        input { 
+            padding: 15px; 
+            width: 70%; 
+            border: 3px solid #ff5722; 
+            border-radius: 10px; 
+            font-size: 16px;
+            background: rgba(255,255,255,0.9);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        input:focus {
+            outline: none;
+            border-color: #ffc107;
+            box-shadow: 
+                inset 0 2px 5px rgba(0,0,0,0.1),
+                0 0 15px rgba(255, 193, 7, 0.3);
+        }
+        button { 
+            margin-top: 15px; 
+            padding: 15px 30px; 
+            background: linear-gradient(135deg, #ff5722 0%, #ff6b35 100%); 
+            color: white; 
+            border: 2px solid #ffc107; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-weight: bold;
+            box-shadow: 
+                0 5px 15px rgba(255, 87, 34, 0.3),
+                0 0 10px rgba(255, 193, 7, 0.2);
+            transition: all 0.3s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 8px 20px rgba(255, 87, 34, 0.4),
+                0 0 15px rgba(255, 193, 7, 0.3);
+            background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+        }
+        #message { margin-top: 15px; font-weight: bold; }
+
+        #map-instruction {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, rgba(255, 87, 34, 0.9) 0%, rgba(255, 107, 53, 0.9) 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            border: 2px solid #ffc107;
+            pointer-events: none;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+
+<div id="main-container">
+    <!-- Página Inicial -->
+    <div id="start-container">
+        <h1>Caça ao Tesouro One Piece</h1>
+        <img src="img/OP_INICIO.png" alt="One Piece Início" class="main-image">
+        <br>
+        <button class="start-button" onclick="startGame()">ZARPAR PARA A AVENTURA!!</button>
+    </div>
+
+    <!-- Jogo -->
+    <div id="riddle-container" style="display: none;">
+        <h1 id="title">Desafio do Luffy</h1>
+        <p id="description">Decifre o enigma para atualizar nossa rota:</p>
+        <div id="hint-box" class="hint">Antes de partirmos para a GRAND LINE, precisamos de um plano. Onde o bando se reune para ver o mapa e descansar da última ilha?</div>
+        <input type="text" id="answer" placeholder="Responda aqui..." autocomplete="off">
+        <br>
+        <button onclick="checkAnswer()">CONFIRMAR ROTA</button>
+        <p id="message"></p>
+    </div>
+
+    <div id="map-container">
+        <img src="" id="map-image">
+        <div id="treasure-x" onclick="advanceFromMap()">
+            <img src="img/X_sem_fundo.png" alt="X">
+        </div>
+        <div id="map-instruction">Encontre o X escondido no mapa!</div>
+    </div>
+</div>
+
+<script>
+    let currentStage = 0;
+    let showingMap = false;
+    const gameConfig = [
+        {
+            riddle: "Antes de partirmos para a GRAND LINE, precisamos de um plano. Onde o bando se reune para ver o mapa e descansar da última ilha?",
+            answer: "sala",
+            mapSrc: "img/OP_MAPA_1.png",
+            xTop: "25%",
+            xLeft: "10%"
+        },
+        {
+            riddle: "O estômago de Luffy está roncando! Para o capitão não comer a tripulação, vá até o reino de Sanji, onde o fogo e o metal criam o banquete real.",
+            answer: "cozinha",
+            mapSrc: "img/OP_MAPA_2.png",
+            xTop: "25%",
+            xLeft: "10%"
+        },
+        {
+            riddle: "Enfrentamos uma tempestade gigante e todas as capas de pirata ficaram encharcadas! Onde as roupas rodam e a espuma limpa a sujeira do mar?",
+            answer: "lavanderia",
+            mapSrc: "img/OP_MAPA_3.png",
+            xTop: "25%",
+            xLeft: "10%"
+        },
+        {
+            riddle: "Até um futuro rei dos piratas precisa de um sono profundo para recuperar o HAKI. Procure onde os sonhos de encontrar o ONE PIECE ganham vida todas as noites.",
+            answer: "quarto",
+            mapSrc: "img/OP_MAPA_4.png",
+            xTop: "25%",
+            xLeft: "10%"
+        },
+        {
+            riddle: "O destino final! Onde o cheiro de carne assada atrai o Luffy de quilômetros de distância. O ONE PIECE está onde a festa acontece e o fogo queima alto!",
+            answer: "churrasqueira",
+            mapSrc: "img/OP_MAPA_5.png",
+            xTop: "25%",
+            xLeft: "10%"
+        },
+    ];
+
+    const startContainer = document.getElementById('start-container');
+    const riddleContainer = document.getElementById('riddle-container');
+    const mapContainer = document.getElementById('map-container');
+    const hintElement = document.getElementById('hint-box');
+    const answerInput = document.getElementById('answer');
+    const msgElement = document.getElementById('message');
+    const mapImage = document.getElementById('map-image');
+    const treasureX = document.getElementById('treasure-x');
+
+    function startGame() {
+        startContainer.style.display = "none";
+        riddleContainer.style.display = "block";
+        answerInput.focus();
+    }
+
+    answerInput.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            checkAnswer();
+        }
+    });
+
+    function checkAnswer() {
+        const userInput = answerInput.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+        const answer = gameConfig[currentStage].answer.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+        if (userInput === answer) {
+            msgElement.style.color = "green";
+            msgElement.innerText = "BRILHANTE! O mapa apareceu. Procure o X!";
+
+            mapImage.src = gameConfig[currentStage].mapSrc;
+            treasureX.style.top = gameConfig[currentStage].xTop;
+            treasureX.style.left = gameConfig[currentStage].xLeft;
+
+            setTimeout(() => {
+                riddleContainer.style.display = "none";
+                mapContainer.style.display = "block";
+                msgElement.innerText = "";
+                answerInput.value = "";
+            }, 1500);
+        } else {
+            msgElement.style.color = "red";
+            msgElement.innerText = "Hmm, não parece certo. Tente de novo!";
+        }
+    }
+
+    function advanceFromMap() {
+        currentStage++;
+        if (currentStage < gameConfig.length) {
+            mapContainer.style.display = "none";
+            riddleContainer.style.display = "block";
+            hintElement.innerText = gameConfig[currentStage].riddle;
+            answerInput.focus();
+        } else {
+            document.getElementById('main-container').innerHTML = `
+                <div style="position: relative; text-align: center; width: 100%; max-width: 800px;">
+                    <button onclick="location.reload()" style="position: absolute; top: -50px; right: 0; padding: 10px 15px; font-size: 14px; background-color: #d35400; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                        🔄 JOGAR NOVAMENTE
+                    </button>
+                    
+                    <h1>VOCÊ VENCEU! O tesouro é seu! 🏴‍☠️</h1>
+                    
+                    <img src="img/OP_TESOURO.png"
+                         style="width: 100%; border-radius: 15px; border: 5px solid #d35400; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                </div>
+            `;
+        }
+    }
+</script>
+</body>
+</html>
