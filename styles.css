@@ -74,9 +74,9 @@ body::before {
 
 .start-button {
     padding: 20px 40px;
-    background: linear-gradient(135deg, #ff5722 0%, #ff6b35 50%, #ff8c42 100%);
+    background: #ff5722;
     color: white;
-    border: 3px solid #ffc107;
+    border: 3px solid #ff6b35;
     border-radius: 15px;
     cursor: pointer;
     font-weight: bold;
@@ -107,13 +107,12 @@ body::before {
         0 8px 25px rgba(255, 87, 34, 0.6),
         0 0 30px rgba(255, 193, 7, 0.5),
         inset 0 0 15px rgba(255,255,255,0.3);
-    background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 50%, #ffa500 100%);
 }
 
 /* Estilos da Caixa de Enigma */
 #riddle-container {
     background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #CD853F 100%);
-    padding: 40px;
+    padding: 30px;
     border-radius: 15px;
     box-shadow: 
         0 10px 30px rgba(0,0,0,0.8),
@@ -216,12 +215,13 @@ body::before {
     text-shadow: 
         2px 2px 4px rgba(0,0,0,0.8),
         0 0 20px rgba(255, 215, 0, 0.6);
-    font-size: 2.5em;
-    margin-bottom: 20px;
+    font-size: 2.2em;
+    margin-bottom: 15px;
     letter-spacing: 3px;
     font-weight: bold;
     text-transform: uppercase;
     animation: flicker 3s ease-in-out infinite;
+    font-family: 'Cinzel', 'IM Fell English SC', Georgia, serif;
 }
 
 @keyframes flicker {
@@ -231,15 +231,16 @@ body::before {
 .hint { 
     font-style: italic; 
     color: #FFF8DC; 
-    margin: 25px 0; 
+    margin: 15px 0; 
     font-weight: normal; 
-    font-size: 1.3em;
+    font-size: 1.2em;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-    line-height: 1.6;
+    line-height: 1.5;
     background: rgba(0,0,0,0.2);
-    padding: 20px;
+    padding: 15px;
     border-radius: 10px;
     border: 2px solid rgba(255, 215, 0, 0.3);
+    font-family: 'IM Fell English SC', 'Libre Baskerville', Georgia, serif;
 }
 #riddle-container input { 
     padding: 15px; 
@@ -268,7 +269,7 @@ body::before {
 #riddle-container button { 
     margin-top: 20px; 
     padding: 18px 35px; 
-    background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #CD853F 100%); 
+    background: #8B4513; 
     color: #FFD700; 
     border: 3px solid #654321; 
     border-radius: 10px; 
@@ -289,7 +290,7 @@ body::before {
     box-shadow: 
         0 8px 25px rgba(0,0,0,0.6),
         inset 0 0 15px rgba(255, 215, 0, 0.3);
-    background: linear-gradient(135deg, #A0522D 0%, #CD853F 50%, #DEB887 100%);
+    background: #A0522D;
     border-color: #8B4513;
 }
 #riddle-container #message { 
@@ -298,6 +299,18 @@ body::before {
     font-size: 1.1em;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
     min-height: 25px;
+}
+
+#riddle-image {
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    margin: 15px auto;
+    display: block;
+    border-radius: 10px;
+    border: 3px solid #654321;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    object-fit: contain;
 }
 
 #map-instruction {

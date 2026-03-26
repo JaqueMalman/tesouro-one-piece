@@ -4,13 +4,15 @@ const gameConfig = [
     {
         riddle: "Antes de partirmos para a GRAND LINE, precisamos de um plano. Onde o bando se reune para ver o mapa e descansar da última ilha?",
         answer: "sala",
+        riddleImage: "img/OP_PISTA_1.png",
         mapSrc: "img/OP_MAPA_1.png",
-        xTop: "10%",
-        xLeft: "60%"
+        xTop: "45%",
+        xLeft: "70%"
     },
     {
         riddle: "O estômago de Luffy está roncando! Para o capitão não comer a tripulação, vá até o reino de Sanji, onde o fogo e o metal criam o banquete real.",
         answer: "cozinha",
+        riddleImage: "img/OP_PISTA_2.png",
         mapSrc: "img/OP_MAPA_2.png",
         xTop: "60%",
         xLeft: "15%"
@@ -18,22 +20,25 @@ const gameConfig = [
     {
         riddle: "Enfrentamos uma tempestade gigante e todas as capas de pirata ficaram encharcadas! Onde as roupas rodam e a espuma limpa a sujeira do mar?",
         answer: "lavanderia",
+        riddleImage: "img/OP_PISTA_3.png",
         mapSrc: "img/OP_MAPA_3.png",
-        xTop: "30%",
-        xLeft: "50%"
+        xTop: "85%",
+        xLeft: "40%"
     },
     {
         riddle: "Até um futuro rei dos piratas precisa de um sono profundo para recuperar o HAKI. Procure onde os sonhos de encontrar o ONE PIECE ganham vida todas as noites.",
         answer: "quarto",
+        riddleImage: "img/OP_PISTA_4.png",
         mapSrc: "img/OP_MAPA_4.png",
         xTop: "60%",
-        xLeft: "40%"
+        xLeft: "80"
     },
     {
         riddle: "O destino final! Onde o cheiro de carne assada atrai o Luffy de quilômetros de distância. O ONE PIECE está onde a festa acontece e o fogo queima alto!",
         answer: "churrasqueira",
+        riddleImage: "img/OP_PISTA_5.png",
         mapSrc: "img/OP_MAPA_5.png",
-        xTop: "25%",
+        xTop: "40%",
         xLeft: "10%"
     },
 ];
@@ -42,6 +47,7 @@ const startContainer = document.getElementById('start-container');
 const riddleContainer = document.getElementById('riddle-container');
 const mapContainer = document.getElementById('map-container');
 const hintElement = document.getElementById('hint-box');
+const riddleImage = document.getElementById('riddle-image');
 const answerInput = document.getElementById('answer');
 const msgElement = document.getElementById('message');
 const mapImage = document.getElementById('map-image');
@@ -50,6 +56,7 @@ const treasureX = document.getElementById('treasure-x');
 function startGame() {
     startContainer.style.display = "none";
     riddleContainer.style.display = "block";
+    riddleImage.src = gameConfig[currentStage].riddleImage;
     answerInput.focus();
 }
 
@@ -64,7 +71,7 @@ function checkAnswer() {
     const userInput = answerInput.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
     const answer = gameConfig[currentStage].answer.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
     if (userInput === answer) {
-        msgElement.style.color = "green";
+        msgElement.style.color = "white";
         msgElement.innerText = "BRILHANTE! O mapa apareceu. Procure o X!";
 
         mapImage.src = gameConfig[currentStage].mapSrc;
@@ -89,6 +96,7 @@ function advanceFromMap() {
         mapContainer.style.display = "none";
         riddleContainer.style.display = "block";
         hintElement.innerText = gameConfig[currentStage].riddle;
+        riddleImage.src = gameConfig[currentStage].riddleImage;
         answerInput.focus();
     } else {
         document.getElementById('main-container').innerHTML = `
