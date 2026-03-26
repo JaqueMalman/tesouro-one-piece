@@ -112,29 +112,57 @@ body::before {
 
 /* Estilos da Caixa de Enigma */
 #riddle-container {
-    background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,248,225,0.9) 100%);
+    background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #CD853F 100%);
     padding: 40px;
-    border-radius: 20px;
+    border-radius: 15px;
     box-shadow: 
-        0 15px 35px rgba(0,0,0,0.7),
-        0 0 30px rgba(255, 87, 34, 0.3),
-        inset 0 0 20px rgba(255, 193, 7, 0.1);
+        0 10px 30px rgba(0,0,0,0.8),
+        inset 0 0 20px rgba(0,0,0,0.3),
+        0 0 40px rgba(255, 215, 0, 0.2);
     text-align: center;
     width: 90%;
-    max-width: 500px;
-    border: 4px solid #ff5722;
+    max-width: 600px;
+    border: 4px solid #654321;
     position: relative;
     overflow: hidden;
+    color: #FFF8DC;
+    font-family: 'Georgia', serif;
 }
 
 #riddle-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 10px,
+            rgba(0,0,0,0.1) 10px,
+            rgba(0,0,0,0.1) 20px
+        );
+    pointer-events: none;
+    z-index: 1;
+}
+
+#riddle-container::after {
     content: '🏴‍☠️';
     position: absolute;
-    top: -10px;
-    right: -10px;
-    font-size: 30px;
-    opacity: 0.3;
+    top: 15px;
+    right: 15px;
+    font-size: 40px;
+    opacity: 0.8;
     transform: rotate(15deg);
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
+    z-index: 2;
+}
+
+#riddle-container > * {
+    position: relative;
+    z-index: 3;
 }
 
 /* Estilos da Área do Mapa */
@@ -150,7 +178,7 @@ body::before {
         0 0 40px rgba(255, 87, 34, 0.4),
         inset 0 0 30px rgba(255, 193, 7, 0.2);
     overflow: hidden;
-    cursor: crosshair;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>') 12 12, auto;
     background: rgba(0,0,0,0.2);
 }
 
@@ -165,98 +193,112 @@ body::before {
 /* --- O SEGREDO: O X INVISÍVEL --- */
 #treasure-x {
     position: absolute;
-    width: 80px;
-    height: 80px;
+    width: 20px;
+    height: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0;
     transition: all 0.3s ease;
     cursor: pointer;
     filter: drop-shadow(0 0 10px rgba(255, 193, 7, 0.8));
 }
 
 #treasure-x:hover {
-    opacity: 1;
     transform: scale(1.1);
     filter: drop-shadow(0 0 20px rgba(255, 193, 7, 1));
+    cursor: pointer;
 }
 
 #treasure-x img { width: 100%; height: 100%; }
 
-/* Interface */
-h1 { 
-    color: #ffc107;
-    text-transform: uppercase;
+#riddle-container h1 {
+    color: #FFD700;
     text-shadow: 
         2px 2px 4px rgba(0,0,0,0.8),
-        0 0 20px rgba(255, 193, 7, 0.5),
-        0 0 40px rgba(255, 87, 34, 0.3);
-    font-size: 3em;
-    margin-bottom: 30px;
-    letter-spacing: 2px;
-    animation: glow 2s ease-in-out infinite alternate;
+        0 0 20px rgba(255, 215, 0, 0.6);
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    letter-spacing: 3px;
+    font-weight: bold;
+    text-transform: uppercase;
+    animation: flicker 3s ease-in-out infinite;
 }
 
-@keyframes glow {
-    from { text-shadow: 
-        2px 2px 4px rgba(0,0,0,0.8),
-        0 0 20px rgba(255, 193, 7, 0.5),
-        0 0 40px rgba(255, 87, 34, 0.3);
-    }
-    to { text-shadow: 
-        2px 2px 4px rgba(0,0,0,0.8),
-        0 0 30px rgba(255, 193, 7, 0.8),
-        0 0 50px rgba(255, 87, 34, 0.5);
-    }
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.9; }
 }
 .hint { 
     font-style: italic; 
-    color: #1a237e; 
-    margin: 20px 0; 
-    font-weight: bold; 
-    font-size: 1.2em;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    color: #FFF8DC; 
+    margin: 25px 0; 
+    font-weight: normal; 
+    font-size: 1.3em;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+    line-height: 1.6;
+    background: rgba(0,0,0,0.2);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 215, 0, 0.3);
 }
-input { 
+#riddle-container input { 
     padding: 15px; 
-    width: 70%; 
-    border: 3px solid #ff5722; 
-    border-radius: 10px; 
-    font-size: 16px;
-    background: rgba(255,255,255,0.9);
-    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-input:focus {
-    outline: none;
-    border-color: #ffc107;
+    width: 80%; 
+    border: 3px solid #654321; 
+    border-radius: 8px; 
+    font-size: 18px;
+    background: rgba(255, 248, 220, 0.9);
     box-shadow: 
-        inset 0 2px 5px rgba(0,0,0,0.1),
-        0 0 15px rgba(255, 193, 7, 0.3);
+        inset 0 2px 8px rgba(0,0,0,0.3),
+        0 0 15px rgba(255, 215, 0, 0.2);
+    transition: all 0.3s;
+    font-family: 'Georgia', serif;
+    color: #654321;
+    font-weight: bold;
 }
-button { 
-    margin-top: 15px; 
-    padding: 15px 30px; 
-    background: linear-gradient(135deg, #ff5722 0%, #ff6b35 100%); 
-    color: white; 
-    border: 2px solid #ffc107; 
+
+#riddle-container input:focus {
+    outline: none;
+    border-color: #FFD700;
+    box-shadow: 
+        inset 0 2px 8px rgba(0,0,0,0.3),
+        0 0 25px rgba(255, 215, 0, 0.4);
+    background: rgba(255, 255, 255, 0.95);
+}
+#riddle-container button { 
+    margin-top: 20px; 
+    padding: 18px 35px; 
+    background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #CD853F 100%); 
+    color: #FFD700; 
+    border: 3px solid #654321; 
     border-radius: 10px; 
     cursor: pointer; 
     font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     box-shadow: 
-        0 5px 15px rgba(255, 87, 34, 0.3),
-        0 0 10px rgba(255, 193, 7, 0.2);
+        0 5px 15px rgba(0,0,0,0.5),
+        inset 0 0 10px rgba(255, 215, 0, 0.2);
     transition: all 0.3s;
+    font-family: 'Georgia', serif;
 }
-button:hover {
+
+#riddle-container button:hover {
     transform: translateY(-2px);
     box-shadow: 
-        0 8px 20px rgba(255, 87, 34, 0.4),
-        0 0 15px rgba(255, 193, 7, 0.3);
-    background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+        0 8px 25px rgba(0,0,0,0.6),
+        inset 0 0 15px rgba(255, 215, 0, 0.3);
+    background: linear-gradient(135deg, #A0522D 0%, #CD853F 50%, #DEB887 100%);
+    border-color: #8B4513;
 }
-#message { margin-top: 15px; font-weight: bold; }
+#riddle-container #message { 
+    margin-top: 20px; 
+    font-weight: bold; 
+    font-size: 1.1em;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    min-height: 25px;
+}
 
 #map-instruction {
     position: absolute;
