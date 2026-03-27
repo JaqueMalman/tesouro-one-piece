@@ -2,7 +2,7 @@ let currentStage = 0;
 let showingMap = false;
 const gameConfig = [
     {
-        riddle: "Antes de partirmos para a GRAND LINE, precisamos de um plano. Onde o bando se reune para ver o mapa e descansar da última ilha?",
+        riddle: "Antes de partirmos para a GRAND LINE, precisamos de um plano. Onde o bando se reune para ver o mapa e planejar a próxima aventura?",
         answer: "sala",
         riddleImage: "img/OP_PISTA_1.png",
         mapSrc: "img/OP_MAPA_1.png",
@@ -22,7 +22,7 @@ const gameConfig = [
         answer: "lavanderia",
         riddleImage: "img/OP_PISTA_3.png",
         mapSrc: "img/OP_MAPA_3.png",
-        xTop: "85%",
+        xTop: "75%",
         xLeft: "40%"
     },
     {
@@ -102,7 +102,7 @@ function advanceFromMap() {
         document.getElementById('main-container').innerHTML = `
             <div style="position: relative; text-align: center; width: 100%; max-width: 800px;">
                 <button onclick="location.reload()" style="position: absolute; top: -50px; right: 0; padding: 10px 15px; font-size: 14px; background-color: #d35400; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
-                    🔄 JOGAR NOVAMENTE
+                    JOGAR NOVAMENTE
                 </button>
                 
                 <h1>VOCÊ VENCEU! O tesouro é seu! 🏴‍☠️</h1>

@@ -51,6 +51,14 @@ body::before {
     max-width: 800px;
 }
 
+.subtitle {
+    color: black;
+    font-size: 1.3em;
+    margin: 15px 0 25px 0;
+    font-family: 'Libre Baskerville', Georgia, serif;
+    opacity: 0.9;
+}
+
 .main-image {
     width: 100%;
     max-width: 600px;
@@ -76,16 +84,13 @@ body::before {
     padding: 20px 40px;
     background: #ff5722;
     color: white;
-    border: 3px solid #ff6b35;
+    border: none;
     border-radius: 15px;
     cursor: pointer;
     font-weight: bold;
     font-size: 18px;
     text-transform: uppercase;
-    box-shadow: 
-        0 5px 15px rgba(255, 87, 34, 0.4),
-        0 0 20px rgba(255, 193, 7, 0.3),
-        inset 0 0 10px rgba(255,255,255,0.2);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     transition: all 0.3s;
     position: relative;
     overflow: hidden;
@@ -103,10 +108,7 @@ body::before {
 
 .start-button:hover {
     transform: translateY(-3px) scale(1.05);
-    box-shadow: 
-        0 8px 25px rgba(255, 87, 34, 0.6),
-        0 0 30px rgba(255, 193, 7, 0.5),
-        inset 0 0 15px rgba(255,255,255,0.3);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
 }
 
 /* Estilos da Caixa de Enigma */
@@ -271,27 +273,22 @@ body::before {
     padding: 18px 35px; 
     background: #8B4513; 
     color: #FFD700; 
-    border: 3px solid #654321; 
+    border: none; 
     border-radius: 10px; 
     cursor: pointer; 
     font-weight: bold;
     font-size: 16px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    box-shadow: 
-        0 5px 15px rgba(0,0,0,0.5),
-        inset 0 0 10px rgba(255, 215, 0, 0.2);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     transition: all 0.3s;
     font-family: 'Georgia', serif;
 }
 
 #riddle-container button:hover {
     transform: translateY(-2px);
-    box-shadow: 
-        0 8px 25px rgba(0,0,0,0.6),
-        inset 0 0 15px rgba(255, 215, 0, 0.3);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
     background: #A0522D;
-    border-color: #8B4513;
 }
 #riddle-container #message { 
     margin-top: 20px; 
